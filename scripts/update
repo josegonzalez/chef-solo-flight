@@ -16,7 +16,15 @@ __update() {
       rsync -Caz --delete --exclude .git --rsh='ssh' ./ ${server}:${chef_file_dest}
 
       echo ".. Running Chef Solo..."
-      ssh ${server} "sudo chmod -R a+w /tmp/chef && sudo chef-solo -c ${chef_file_dest}/solo-config.rb -j ${chef_file_dest}/dna/${server_role}-${server_loc}-${server_num}.json"
+      ssh ${server} "
+sudo chmod -R a+w /tmp/chef
+source /etc/profile
+if command -v rvm >/dev/null; then
+   rvmsudo chef-solo -c ${chef_file_dest}/solo-config.rb -j ${chef_file_dest}/dna/${server_role}-${server_loc}-${server_num}.json
+else
+  sudo chef-solo -c ${chef_file_dest}/solo-config.rb -j ${chef_file_dest}/dna/${server_role}-${server_loc}-${server_num}.json
+fi
+
     else
       echo ".. Invalid Server Name - skipping..."
     fi
