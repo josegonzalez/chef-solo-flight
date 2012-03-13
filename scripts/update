@@ -24,7 +24,7 @@ if command -v rvm >/dev/null; then
 else
   sudo chef-solo -c ${chef_file_dest}/solo-config.rb -j ${chef_file_dest}/dna/${server_role}-${server_loc}-${server_num}.json
 fi
-
+"
     else
       echo ".. Invalid Server Name - skipping..."
     fi
