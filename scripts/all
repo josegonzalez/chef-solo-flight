@@ -1,0 +1,35 @@
+#!/bin/bash
+
+__all() {
+  echo -e ". Sending Default Update to all Servers..."
+
+  while [[ $# -gt 0 ]] ; do
+    server="$1" ; shift
+    echo ".. ${server}..."
+
+    server_role=${BASH_REMATCH[1]}
+    server_loc=${BASH_REMATCH[2]}
+    server_num=${BASH_REMATCH[3]}
+
+    echo ".. Updating Cookbooks..."
+    echo "... rsync -Caz --delete --exclude .git --rsh='ssh' ./ ${server}:${chef_file_dest}"
+    rsync -Caz --delete --exclude .git --rsh='ssh' ./ ${server}:${chef_file_dest}
+
+    echo ".. Running Chef Solo..."
+    ssh ${server} "
+sudo chmod -R a+w /tmp/chef
+source /etc/profile
+if command -v rvm >/dev/null; then
+ rvmsudo chef-solo -c ${chef_file_dest}/solo-config.rb -j ${chef_file_dest}/dna/all.json
+elif [ -x /usr/local/bin/chef-solo ]; then
+  sudo /usr/local/bin/chef-solo -c ${chef_file_dest}/solo-config.rb -j ${chef_file_dest}/dna/all.json
+elif [ -x /var/lib/gems/1.9.1/bin/chef-solo ]; then
+  sudo /var/lib/gems/1.9.1/bin/chef-solo -c ${chef_file_dest}/solo-config.rb -j ${chef_file_dest}/dna/all.json
+else
+  echo chef-solo command not found
+fi
+"
+  done
+
+  echo ". Done!"
+}
