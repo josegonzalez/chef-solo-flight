@@ -3,7 +3,7 @@
 source scripts/config
 source scripts/bootstrap
 source scripts/update
-source scripts/all
+source scripts/default
 
 source scripts/usage
 source scripts/version
@@ -11,7 +11,7 @@ source scripts/version
 if [[ $# -gt 0 ]] ; then
   token="$1" ; shift
   case "$token" in
-    all)        __all $* ; exit ;;
+    default)    __default $* ; exit ;;
     bootstrap)  __bootstrap $* ; exit ;;
     update)     __update $* ; exit ;;
     version)    __version ; exit ;;

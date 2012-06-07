@@ -1,7 +1,7 @@
 #!/bin/bash
 
-__all() {
-  echo -e ". Sending Default Update to all Servers..."
+__default() {
+  echo -e ". Sending Default Update to One Server..."
 
   while [[ $# -gt 0 ]] ; do
     server="$1" ; shift
