@@ -1,4 +1,5 @@
 .DS_Store
 *.tmproj
+conf
 dna
 roles

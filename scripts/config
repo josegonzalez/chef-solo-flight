@@ -7,3 +7,27 @@ chef_file_dest=/tmp/chef
 rubygems_version=1.3.7
 chef_version=0.9.8
 ohai_version=0.5.6
+
+BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
+if [ -e $BASE_DIR/conf ]
+then
+  source $BASE_DIR/conf
+fi
+
+while getopts "u:" opt
+do
+  case $opt in
+    u)
+      FLIGHT_USER=$OPTARG
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+  esac
+done
+
+if [ -n $FLIGHT_USER ]
+then
+  FLIGHT_SSH_USER_WRAPPER="$FLIGHT_USER@"
+fi
