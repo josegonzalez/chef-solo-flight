@@ -7,7 +7,7 @@ __bootstrap() {
     server="$1" ; shift
     echo ".. ${server}..."
 
-    ssh ${server} "$bootstrap_sh"
+    ssh ${FLIGHT_SSH_USER_WRAPPER}${server} "$bootstrap_sh"
   done
 
   echo ". Done!"

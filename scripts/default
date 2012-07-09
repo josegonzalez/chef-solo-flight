@@ -12,11 +12,11 @@ __default() {
     server_num=${BASH_REMATCH[3]}
 
     echo ".. Updating Cookbooks..."
-    echo "... rsync -Caz --delete --exclude .git --rsh='ssh' ./ ${server}:${chef_file_dest}"
-    rsync -Caz --delete --exclude .git --rsh='ssh' ./ ${server}:${chef_file_dest}
+    echo "... rsync -Caz --delete --exclude .git --rsh='ssh' ./ ${FLIGHT_SSH_USER_WRAPPER}${server}:${chef_file_dest}"
+    rsync -Caz --delete --exclude .git --rsh="ssh" ./ ${FLIGHT_SSH_USER_WRAPPER}${server}:${chef_file_dest}
 
     echo ".. Running Chef Solo..."
-    ssh ${server} "
+    ssh ${FLIGHT_SSH_USER_WRAPPER}${server} "
 sudo chmod -R a+w /tmp/chef
 source /etc/profile
 if command -v rvm >/dev/null; then
