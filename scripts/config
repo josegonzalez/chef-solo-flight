@@ -9,7 +9,7 @@ ohai_version=6.14.0
 chef_version=10.12.0
 
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
-if [ -e $BASE_DIR/conf ]
+if [[ -e $BASE_DIR/conf ]]
 then
   source $BASE_DIR/conf
 fi
@@ -27,7 +27,7 @@ do
   esac
 done
 
-if [ -n $FLIGHT_USER ]
+if [[ -n $FLIGHT_USER ]]
 then
   FLIGHT_SSH_USER_WRAPPER="$FLIGHT_USER@"
 fi
