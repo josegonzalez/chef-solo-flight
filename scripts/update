@@ -7,10 +7,6 @@ __update() {
     server="$1" ; shift
     echo ".. ${server}..."
 
-    server_role=${BASH_REMATCH[1]}
-    server_loc=${BASH_REMATCH[2]}
-    server_num=${BASH_REMATCH[3]}
-
     echo ".. Updating Cookbooks..."
     echo "... rsync -Caz --delete --exclude .git --rsh='ssh' ./ ${FLIGHT_SSH_USER_WRAPPER}${server}:${chef_file_dest}"
     rsync -Caz --delete --exclude .git --rsh='ssh' ./ ${FLIGHT_SSH_USER_WRAPPER}${server}:${chef_file_dest}
