@@ -1,0 +1,25 @@
+#!/bin/bash
+
+__gem() {
+  echo -e ". Updating Chef and Ohai..."
+
+  while [[ $# -gt 0 ]] ; do
+    server="$1" ; shift
+    echo ".. ${server}..."
+
+    ssh ${server} "$bootstrap_sh"
+  done
+
+  echo ". Done!"
+}
+
+bootstrap_sh='
+ohai_version=6.14.0
+chef_version=10.14.4
+
+echo "... Installing Ohai ${ohai_version}"
+sudo gem install -v ${ohai_version} ohai --no-rdoc --no-ri
+
+echo "... Installing Chef ${chef_version}"
+sudo gem install -v ${chef_version} chef --no-rdoc --no-ri
+'

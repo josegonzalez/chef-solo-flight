@@ -2,6 +2,7 @@
 
 source scripts/config
 source scripts/bootstrap
+source scripts/gem
 source scripts/update
 source scripts/default
 
@@ -10,11 +11,18 @@ source scripts/version
 
 if [[ $# -gt 0 ]] ; then
   token="$1" ; shift
+  if [[ $token == "-u" ]] ; then
+    shift
+    token="$1" ; shift
+  fi
+
   case "$token" in
     default)    __default $* ; exit ;;
     bootstrap)  __bootstrap $* ; exit ;;
     update)     __update $* ; exit ;;
+    gem)        __gem $* ; exit ;;
     version)    __version ; exit ;;
+    usage)      __usage ; exit ;;
     help|*)     __usage ;;
   esac
 else
