@@ -9,8 +9,8 @@ end
 
 cookbook_path    chef_cookbook_dirs
 role_path        chef_base + 'roles/'
-file_cache_path  chef_recipes
-file_store_path  chef_recipes
+file_cache_path  '/mnt/'
+file_store_path  '/mnt/'
 log_level        :info
 log_location     STDOUT
 ssl_verify_mode  :verify_none
