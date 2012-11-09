@@ -41,7 +41,7 @@ sudo update-alternatives --config ruby
 sudo update-alternatives --config gem
 
 ohai_version=6.14.0
-chef_version=10.12.0
+chef_version=10.14.4
 
 echo ".. Installing Chef ..."
 sudo gem install -v ${ohai_version} ohai --no-rdoc --no-ri
